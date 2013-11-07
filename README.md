@@ -21,8 +21,8 @@ Or install it yourself as:
 
 If you have group_users and users associations,
 
- has_many :group_users
- has_many :users, :through => :group_users
+    has_many :group_users
+    has_many :users, :through => :group_users
 
 You can use group.user_ids= to replace users and save them in Rails.
 
@@ -32,7 +32,7 @@ This gem make it possible with group._user_ids=.
 
 To enable _user_ids=, add like this.
 
- accepts_source_ids_for :users
+    accepts_source_ids_for :users
 
 This also add _user_ids method that returns active (not marked for destruction) records' ids.
 
