@@ -34,7 +34,10 @@ To enable _user_ids=, add like this.
 
     accepts_source_ids_for :users
 
-This also add _user_ids method that returns active (not marked for destruction) records' ids.
+This also add following methods.
+
+* _user_ids - returns active (not marked for destruction) records' ids.
+* _users - return source records via relation objects (relation objects may be changed but not saved yet).
 
 ## Contributing
 

@@ -11,6 +11,7 @@ module SourceIds
       raise "Could not find association #{source_association_name}" unless source_association
       relation = source_association.through_reflection
       raise "#{source_association_name} does not have :through" unless relation
+      source_name = source_association.source_reflection.name
       fk_in_relation = source_association.source_reflection.foreign_key
       source_ids_name = options[:as] || "#{source_association_name.to_s.singularize}_ids"
 
@@ -43,8 +44,14 @@ module SourceIds
         end
       end
 
+      # _source_ids
       define_method "_#{source_ids_name}" do
         send(relation.name).find_all{|r| !r.marked_for_destruction?}.map(&fk_in_relation.to_sym)
+      end
+
+      # _sources
+      define_method "_#{source_association_name}" do
+        send(relation.name).find_all{|r| !r.marked_for_destruction?}.map(&source_name)
       end
     end
   end
