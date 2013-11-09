@@ -1,6 +1,6 @@
 # SourceIds
 
-SourceIds enables indirect association replacement via _source_ids=.
+SourceIds enables indirect association replacement via \_source_ids=.
 This feature is only for has_many :through associations.
 
 ## Installation
@@ -28,13 +28,13 @@ You can use group.user_ids= to replace users and save them in Rails.
 
 But you can't just change your association objects without saving them.
 
-This gem make it possible with group._user_ids=.
+This gem make it possible with group.\_user_ids=.
 
-To enable _user_ids=, add like this.
+To enable \_user_ids=, add like this.
 
     accepts_source_ids_for :users
 
-This also add _user_ids method that returns active (not marked for destruction) records' ids.
+This also add \_user_ids method that returns active (not marked for destruction) records' ids.
 
 ## Contributing
 
