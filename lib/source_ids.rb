@@ -17,16 +17,16 @@ module SourceIds
 
       # _source_ids=
       define_method "_#{source_ids_name}=" do |ids|
-        ids = ids.find_all(&:present?) # care for hidden field of collection_select
+        ids = ids.find_all(&:present?).map(&:to_s) # care for hidden field of collection_select
 
         # mark destruction if not included in ids
         send(relation.name).each do |r|
           source_id = r.send(fk_in_relation)
-          r.mark_for_destruction unless ids.include?(source_id)
+          r.mark_for_destruction unless ids.include?(source_id.to_s)
         end
 
         ids.each do |source_id|
-          unless send(relation.name).detect{|r| r.send(fk_in_relation) == source_id}
+          unless send(relation.name).detect{|r| r.send(fk_in_relation).to_s == source_id}
             send(relation.name).build(fk_in_relation => source_id)
           end
         end
@@ -39,7 +39,7 @@ module SourceIds
           elsif b.marked_for_destruction?
             1
           else
-            ids.index(a.send(fk_in_relation)) <=> ids.index(b.send(fk_in_relation))
+            ids.index(a.send(fk_in_relation).to_s) <=> ids.index(b.send(fk_in_relation).to_s)
           end
         end
       end
