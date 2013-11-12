@@ -31,7 +31,7 @@ module SourceIds
           end
         end
 
-        send(relation.name).target.sort do |a, b|
+        send(relation.name).target.sort! do |a, b|
           if a.marked_for_destruction? && b.marked_for_destruction?
             0
           elsif a.marked_for_destruction?
