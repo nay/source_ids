@@ -19,10 +19,14 @@ module SourceIds
       define_method "_#{source_ids_name}=" do |ids|
         ids = ids.find_all(&:present?).map(&:to_s) # care for hidden field of collection_select
 
-        # mark destruction if not included in ids
-        send(relation.name).each do |r|
-          source_id = r.send(fk_in_relation)
-          r.mark_for_destruction unless ids.include?(source_id.to_s)
+        # removing
+        removed = send(relation.name).find_all{|r| !ids.include?(r.send(fk_in_relation).to_s) }
+        removed.each do |r|
+          if r.new_record?
+            send(relation.name).delete(r)
+          else
+            r.mark_for_destruction
+          end
         end
 
         ids.each do |source_id|
