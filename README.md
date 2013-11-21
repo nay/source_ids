@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/nay/source_ids.png?branch=master)](https://travis-ci.org/nay/source_ids)
+
 # SourceIds
 
 SourceIds enables indirect association replacement via \_source_ids=.
